@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>After login page</title>
+</head>
+<body>
+
+    {% if user.is_authenticated %}
+
+        {% if user.is_manager %}
+        <h1> hello {{ user.username }} your role is manager</h1>
+        <form action="http://127.0.0.1:8000/domainview" method="POST" autocomplete="off">{%csrf_token%}
+         
+          <div class="mb-6">
+              <label for="domain" class="form-label">Domain</label>
+              <input type="text" class="form-control" id="domainName" name="domain" >
+            </div>
+ 
+             <div class="mb-6">
+              <label for="skillName" class="form-label">Skill</label>
+              <input type="text" class="form-control" id="skillName" name="skillName" >
+            </div>
+ 
+           
+             <button type="button" class="btn btn-secondary" >Cancel</button>
+             <input   class="btn btn-primary" style="background-color:#0d6efd"type="submit" value="Submit">
+           
+        </form>
+        <a href="../logout"><button>Logout</button></a>
+        {% elif user.is_employee %}
+        <h1> hello {{ user.username }} your role is employee</h1>
+
+        <form action="http://127.0.0.1:8000/skillPost" method="POST" autocomplete="off">{%csrf_token%}
+            <input type="hidden" class="form-control" id="userName" name="userName" value={{ user.username }}>
+           
+            <div class="mb-6">
+                <label for="domain" class="form-label">Domain</label>
+                <input type="text" class="form-control" id="domainName" name="domainName" >
+              </div>
+   
+               <div class="mb-6">
+                <label for="skillName" class="form-label">Skill</label>
+                <input type="text" class="form-control" id="skillName" name="skillName" >
+              </div>
+   
+              <div class="mb-6">
+                <label for="years" class="form-label">Years Of Experience</label>
+                <input type="text" class="form-control" id="years" name="years" >
+              </div>
+   
+              <div class="mb-6">
+                <label for="skillLevel" class="form-label">Skill Level</label>
+                <input  list="Level" class="form-control" id="skillLevel" name="skillLevel" >
+                <datalist id="Level">
+                <option value="Basic">
+                <option value="Intermediate">
+                <option value="Advanced">
+                </datalist>
+                {% comment %} <label for="skillLevel" class="form-label">skill Level</label>
+                <input type="text" class="form-control" id="skillLevel" name="skillLevel" > {% endcomment %}
+              </div>
+              <div class="mb-6">
+                <label for="projectdes" class="form-label">Project Description </label>
+                <input type="text" class="form-control" id="projectdes" name="projectdes" >
+              </div>
+             
+        
+             
+               <button type="button" class="btn btn-secondary" >Cancel</button>
+               <input   class="btn btn-primary" style="background-color:#0d6efd"type="submit" value="Submit">
+             
+            
+          </form>
+
+        <a href="../logout"><button>Logout</button></a>
+        {% endif %}
+        {% endif %}
+
+
+
+
+</body>
+</html>
