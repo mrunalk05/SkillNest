@@ -62,7 +62,14 @@ def afterLogin(request):
     print(p)
     for i in p:
         print(i.id)
-    return render(request,'afterLogin.html')
+    skil=skill.objects.all()
+    # print(skil)
+    # for i in skill:
+    #     print(i)
+       
+    dom=requests.get("http://127.0.0.1:8000/domainview")
+    # print(dom)
+    return render(request,'afterLogin.html',{'dom':dom})
 
 
 class skillSerializer(serializers.ModelSerializer):
@@ -87,6 +94,7 @@ class skillview(APIView):
     def post(self,request):
         serializer_class=skillSerializer(data=request.data)
         if serializer_class.is_valid():
+            print("yes")
             serializer_class.save()
             return redirect('../skill')
         return Response(serializer_class.errors,status=status.HTTP_400_BAD_REQUEST)
@@ -125,14 +133,13 @@ def skillPost(request):
         sL=request.POST["skillLevel"]
         y=request.POST["years"]
         pd=request.POST["projectdes"]
-
         q=domain.objects.filter(domain=dN, skillName=sN)
         d_id="" 
         u_id=""
         for i in q:
             d_id=i.domain_id
 
-
+ 
         p=User.objects.get(username=uN)
         u_id=p.id
        
@@ -143,8 +150,38 @@ def skillPost(request):
             "skillLevel":sL,
             "projectdes":pd
         }
+        
+        print("hello")
+        print(context)
         requests.post('http://127.0.0.1:8000/skillview',context)
     return redirect("afterLogin")
+
+
+def skillUpdate(request):
+  if request=="POST":
+    uN=request.POST["userName"]
+    dN=request.POST["domainName"]
+    sN=request.POST["skillName"]
+    sL=request.POST["skillLevel"]
+    y=request.POST["years"]
+    pd=request.POST["projectdes"]
+    print(uN)
+    print(dN)
+    q=domain.objects.filter(domain=dN, skillName=sN)
+    q_id=""
+    u_id=""
+    for i in q:
+            d_id=i.domain_id
+
+    p=User.objects.get(username=uN)
+    u_id=p.id
+    context={
+            "years":y,
+            "skillLevel":sL,
+            "projectdes":pd
+    }
+    requests.patch('http://127.0.0.1:8000/skillview',context)
+  return redirect("afterLogin")
 
 class domainSerializer(serializers.ModelSerializer):
     class Meta:
@@ -195,3 +232,10 @@ class domainview(APIView):
         member = domain.objects.get(domain_id=pk)
         member.delete()
         return Response({'msg':'Deleted'})
+
+
+def delete (request,pk):
+        id=pk
+        member = domain.objects.get(domain_id=pk)
+        member.delete()
+        return redirect("/afterLogin")
