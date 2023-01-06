@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <link rel="stylesheet" href="/static/css/register.css">
+</head>
+<body>
+  
+    <div class="container">
+        <header>
+          {% comment %} {% include "header.html" %} {% endcomment %}
+            Register Form
+        </header>
+
+        <form action="#" class="form">
+            <div class="input-box">
+                <label>Full Name</label>
+                {{form.username}}
+                <input type="text" placeholder="Enter Your Full Name">
+            </div>
+            <div class="input-box">
+                <label>Email</label>
+                {{form.email}}
+                <input type="email" placeholder="Enter Your Email">
+            </div>
+            <!-- <div class="input-box">
+                <label>Position</label>
+                <input type="text" placeholder="Enter Your Position">
+            </div> -->
+            <div class="input-box">
+                <label>Password</label>
+                {{form.password1}}
+                <input type="password" placeholder="Enter Your Password">
+            </div>
+            <div class="input-box">
+                <label>Conform Password</label>
+                {{form.password2}}
+                <input type="password" placeholder="Enter Your Password">
+            </div>
+            <div class="manager">
+              <label>Manager</label>
+              {{form.is_manager}}
+              <input type="checkbox">
+          </div>
+          <div class="employ">
+            <label>Employee</label>
+            {{form.is_employee}}
+            <input type="checkbox">
+        </div>
+            <button class="but" type="submit">Submit</button>
+
+            <div class="row">
+                <p>Already have an account?</p>
+                <button class="login">Login</button>
+            </div>
+        </form>
+      </div>
+</body>
+</html>
+
+
+<!-- <!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Registration</title>
+    <link rel="stylesheet" href="/static/css/register.css" />
+  </head>
+  <body>
+    <section class="container">
+      <header>Registration Form</header>
+      <form action="#" class="form">
+        <div class="input-box">
+          <label>Full Name</label>
+          <input type="text" placeholder="Enter full name" required />
+        </div>
+
+        <div class="input-box">
+          <label>Email Address</label>
+          <input type="text" placeholder="Enter email address" required />
+        </div>
+        <div class="input-box">
+            <label>Position</label>
+            <input type="text" placeholder="Enter Position" required />
+          </div>
+        <div class="input-box">
+            <label>Password</label>
+            <input type="password" placeholder="Enter your password" required />
+          </div>
+
+          <div class="input-box">
+            <label>Conform Password</label>
+            <input type="password" placeholder="Enter password" required />
+          </div>
+    
+        <button>Submit</button>
+      </form>
+    </section>
+  </body>
+</html>
+ -->

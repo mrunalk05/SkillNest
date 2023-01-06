@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Navbar</title>
+    <link rel="stylesheet" href="/static/css/header.css">
+    {% comment %} <link rel="stylesheet" href="./css/index.css"> {% endcomment %}
+    <link rel="stylesheet" href="/static/css/register.css">
+    {% comment %} <link rel="stylesheet" href="./css/style.css"> {% endcomment %}
+</head>
+
+<body class="mobile">
+    <nav>
+        <div class="containerx nav-wrapper">
+            <div class="brand">
+                <span><strong>SkillNest</strong></span>
+            </div>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <ul class="nav-list">
+                <li class="active"><a href="#">Features</a></li>
+                <li><a href="#">Contact</a></li>
+                <li><a href="#">About-Us</a></li>
+                <li>
+                    <button class="btn">Login</button>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+
+    <div class="containerx">
+      
+        <header>
+          
+            Register Form
+        </header>
+
+        <form action="#" class="form">
+            <div class="input-box">
+                <label>Full Name</label>
+                {{form.username}}
+                <input type="text" placeholder="Enter Your Full Name">
+            </div>
+            <div class="input-box">
+                <label>Email</label>
+                {{form.email}}
+                <input type="email" placeholder="Enter Your Email">
+            </div>
+            <!-- <div class="input-box">
+                <label>Position</label>
+                <input type="text" placeholder="Enter Your Position">
+            </div> -->
+            <div class="input-box">
+                <label>Password</label>
+                {{form.password1}}
+                <input type="password" placeholder="Enter Your Password">
+            </div>
+            <div class="input-box">
+                <label>Conform Password</label>
+                {{form.password2}}
+                <input type="password" placeholder="Enter Your Password">
+            </div>
+            <div class="manager">
+              <label>Manager</label>
+              {{form.is_manager}}
+              <input type="checkbox">
+          </div>
+          <div class="employ">
+            <label>Employee</label>
+            {{form.is_employee}}
+            <input type="checkbox">
+        </div>
+            <button class="but" type="submit">Submit</button>
+
+            <div class="row">
+                <p>Already have an account?</p>
+                <button class="login">Login</button>
+            </div>
+        </form>
+      </div>
+    </body>
+    <script src="/static/javascript/app.js"></script>
+
+
+{% comment %} </body>
+
+</html> {% endcomment %}
