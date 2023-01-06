@@ -44,7 +44,7 @@
         </form>
         <a href="../logout"><button>Logout</button></a>
         {% elif user.is_employee %}
-        <h1> hello {{ user.username }} your role is employee</h1>
+        {% comment %} <h1> hello {{ user.username }} your role is employee</h1>
  
         <form action="http://127.0.0.1:8000/skillPost" method="POST" autocomplete="off">{%csrf_token%}
             <input type="hidden" class="form-control" id="userName" name="userName" value={{ user.username }}>
@@ -85,20 +85,23 @@
                <input   class="btn btn-primary" style="background-color:#0d6efd"type="submit" value="Submit">
              
             
-          </form>
+          </form> {% endcomment %}
+          <div>
+            <a data-target="#mymodel" data-toggle="modal" class="btn1 add" href="#">ADD</a>
           <div class="container" id="employees">
-         
+            
 
+          </div>
           </div>
         <a href="../logout"><button>Logout</button></a>
         {% endif %}
-        <div>
-        <a data-target="#mymodel" data-toggle="modal" class="btn1 add" href="#">ADD</a>
+        {% comment %} <div>
+        
         <div class="container" id="employees">
          
 
         </div>
-        </div>
+        </div> {% endcomment %}
         
         {% endif %} 
 
