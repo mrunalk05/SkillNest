@@ -8,6 +8,8 @@ from rest_framework.response import Response
 from rest_framework import serializers,status
 from .models import skill,domain,User
 import requests
+from django_globals import globals
+
 
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.csrf import csrf_exempt
@@ -42,6 +44,7 @@ def login_view(request):
             password = form.cleaned_data.get('password')
             user = authenticate(username=username, password=password)
             
+            
             if user is not None:
                 login(request, user)
                 return redirect('afterLogin')
@@ -60,18 +63,41 @@ def handelLogout(request):
 
 
 def afterLogin(request):
-    p=User.objects.all()
-    print(p)
-    for i in p:
-        print(i.id)
-    skil=domain.objects.all()
-    print(skil)
+    # p=User.objects.all()
+    # print(p)
+    # for i in p:
+    #     print(i.id)
+
+    # skil=domain.objects.filter()
+
+    # print(skil)
     # for i in skill:
     #     print(i)
-       
+    array=[]
     dom=requests.get("http://127.0.0.1:8000/domainview")
-    # print(dom)
-    return render(request,'afterLogin.html',{'dom':dom,"domain":skil})
+    # print(dom.json())
+    if globals.user.is_authenticated:
+        s=skill.objects.filter(userName=globals.user.id)
+        for i in s:
+            context={
+                "uid":i.uid,
+                "years":i.years,
+                "skillName":i.domain_id.skillName,
+                "domainName":i.domain_id.domain,
+                "skillLevel":i.skillLevel
+            }
+            array.append(context)
+            
+        # print(s)
+        # print (array)
+        # for i in array:
+        #     for j in i:
+
+        #         print (j)
+
+
+
+    return render(request,'afterLogin.html',{'dom':dom,"s":array})
 
 
 class skillSerializer(serializers.ModelSerializer):
@@ -164,43 +190,22 @@ def skillPost(request):
     return redirect("afterLogin")
 
 
-def skillUpdate(request,pk):
-    #  if request.method == 'POST':
-    #     skilllevel = request.POST.get('skillLevel'),
-    #     project= request.POST.get('project'),
-    #     skillex= request.POST.get('skillex')
+def skillUpdate(request):
+    if request.method=="POST":
+        
+        u_id=request.POST["_id"]
+        sL=request.POST["skillLevel"]
+        y=request.POST["years"]
+        pd=request.POST["projectdes"]
 
-    #     emp= Employ(
-    #     id=id,
-    #     skilllevel= skilllevel,
-    #     project= project,
-    #     skillex= skillex
-    #     )
-    #     emp.save()
-  if request=="POST":
-    uN=request.POST["userName"]
-    dN=request.POST["domainName"]
-    sN=request.POST["skillName"]
-    sL=request.POST["skillLevel"]
-    y=request.POST["years"]
-    pd=request.POST["projectdes"]
-    print(uN)
-    print(dN)
-    q=domain.objects.filter(domain=dN, skillName=sN)
-    q_id=""
-    u_id=""
-    for i in q:
-            d_id=i.domain_id
-
-    p=User.objects.get(username=uN)
-    u_id=p.id
-    context={
-            "years":y,
-            "skillLevel":sL,
-            "projectdes":pd
-    }
-    requests.patch('http://127.0.0.1:8000/skillview'+u_id,context)
-  return redirect("afterLogin")
+    
+        context={
+                "years":y,
+                "skillLevel":sL,
+                "projectdes":pd
+        }
+        requests.patch('http://127.0.0.1:8000/skillview/'+u_id,context)
+    return redirect("afterLogin")
 
 class domainSerializer(serializers.ModelSerializer):
     class Meta:
@@ -283,3 +288,10 @@ def update(request,id):
         return redirect('home')
         
     return redirect(request, "index.html")
+
+def updateSkill(request):
+    if request.method == 'POST':
+        q=skill.objects.filter(uid=request.POST["id"])
+        data = list(q.values())
+        # print (data)
+    return render(request,'updateSkill.html',{'da':data})

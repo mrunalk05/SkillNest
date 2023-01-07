@@ -44,8 +44,10 @@
         </form>
         <a href="../logout"><button>Logout</button></a>
         {% elif user.is_employee %}
-        {% comment %} <h1> hello {{ user.username }} your role is employee</h1>
- 
+        <h1> hello {{ user.username }} your role is employee</h1>
+
+    
+ {% comment %} 
         <form action="http://127.0.0.1:8000/skillPost" method="POST" autocomplete="off">{%csrf_token%}
             <input type="hidden" class="form-control" id="userName" name="userName" value={{ user.username }}>
            
@@ -91,6 +93,41 @@
             
             {% comment %} <a data-target="#mymodel" data-toggle="modal" class="btn1 add" href="../logout"><button>Logout</button></a> {% endcomment %}
           <div class="container" id="employees">
+            {%for i in s %}
+            {% comment %} {%for j in i %} {% endcomment %}
+
+            <div class="card">
+              <div class="image-container">
+                  <img src="static/images/ONE.avif" />
+              </div>
+              <div class="circle">
+                  
+              </div>
+              <div class="content">
+               
+                  <a>Domain:{{i.domainName}}</a>
+                  <br>
+                  <a>SkillName:{{i.skillName}}</a>
+                  <div>Level:{{i.skillLevel}}</div>
+                  <div>Years of Experience:{{i.years}}</div>
+                
+                  <div>Projects Description:</div>
+                 
+                  <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Aperiam, distinctio. Repellendus n</p> 
+                  <form action="http://127.0.0.1:8000/updateSkill"method="POST">
+                    {% csrf_token %}
+                    <input type="hidden" name="id"value="{{i.uid}}">
+
+                    <button type="submit"class="btn1" >Update
+                    </button>
+                  </form>
+      
+                  <a class="btn1"  href="delete/{{i.uid}}">Delete</a>
+              </div>
+          </div>
+          {% endfor %}
+          {% comment %} {% endfor %} {% endcomment %}
+
             
 
           </div>
@@ -375,33 +412,8 @@
       let tab = "";
 
       //console.log(uid)
-      for (let r of numbers) {
-        console.log(r[4]) 
-        tab+=`<div class="card">
-          <div class="image-container">
-              <img src="static/images/ONE.avif" />
-          </div>
-          <div class="circle">
-              
-          </div>
-          <div class="content">
-           
-              <a>Domain:${r[2]}</a>
-              <br>
-              <a>SkillName:${r[3]}</a>
-              <div>Level:${r[0]}</div>
-              <div>Years of Experience:${r[1]}</div>
-            
-              <div>Projects Description:</div>
-             
-              <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Aperiam, distinctio. Repellendus n</p> 
-              <a class="btn1" data-target="#update" data-toggle="modal" href="#">Update</a>
-  
-              <a class="btn1"  href="delete/${r[4]}">Delete</a>
-          </div>
-      </div>` 
-      }
-      document.getElementById("employees").innerHTML = tab;
+      
+      //document.getElementById("employees").innerHTML = tab;
   }
 
 </script>
