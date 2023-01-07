@@ -34,7 +34,9 @@ def register(request):
 def login_view(request):
     form = LoginForm(request.POST or None)
     msg = None
+    # print(form)
     if request.method == 'POST':
+        print("user")
         if form.is_valid():
             username = form.cleaned_data.get('username')
             password = form.cleaned_data.get('password')
@@ -62,20 +64,20 @@ def afterLogin(request):
     print(p)
     for i in p:
         print(i.id)
-    skil=skill.objects.all()
-    # print(skil)
+    skil=domain.objects.all()
+    print(skil)
     # for i in skill:
     #     print(i)
        
     dom=requests.get("http://127.0.0.1:8000/domainview")
     # print(dom)
-    return render(request,'afterLogin.html',{'dom':dom})
+    return render(request,'afterLogin.html',{'dom':dom,"domain":skil})
 
 
 class skillSerializer(serializers.ModelSerializer):
     class Meta:
         model=skill
-        fields=['userName','domain_id','skillLevel','years']
+        fields=['uid','userName','domain_id','skillLevel','years']
 
 class skillview(APIView):
     
@@ -133,13 +135,18 @@ def skillPost(request):
         sL=request.POST["skillLevel"]
         y=request.POST["years"]
         pd=request.POST["projectdes"]
+        print(uN)
+        print(dN)
+        print(sN)
+        print(sL)
+        # print(y)
         q=domain.objects.filter(domain=dN, skillName=sN)
         d_id="" 
         u_id=""
         for i in q:
             d_id=i.domain_id
 
- 
+        print(d_id)
         p=User.objects.get(username=uN)
         u_id=p.id
        
@@ -157,7 +164,19 @@ def skillPost(request):
     return redirect("afterLogin")
 
 
-def skillUpdate(request):
+def skillUpdate(request,pk):
+    #  if request.method == 'POST':
+    #     skilllevel = request.POST.get('skillLevel'),
+    #     project= request.POST.get('project'),
+    #     skillex= request.POST.get('skillex')
+
+    #     emp= Employ(
+    #     id=id,
+    #     skilllevel= skilllevel,
+    #     project= project,
+    #     skillex= skillex
+    #     )
+    #     emp.save()
   if request=="POST":
     uN=request.POST["userName"]
     dN=request.POST["domainName"]
@@ -180,7 +199,7 @@ def skillUpdate(request):
             "skillLevel":sL,
             "projectdes":pd
     }
-    requests.patch('http://127.0.0.1:8000/skillview',context)
+    requests.patch('http://127.0.0.1:8000/skillview'+u_id,context)
   return redirect("afterLogin")
 
 class domainSerializer(serializers.ModelSerializer):
@@ -236,6 +255,31 @@ class domainview(APIView):
 
 def delete (request,pk):
         id=pk
-        member = domain.objects.get(domain_id=pk)
+        member =skill.objects.get(uid=pk)
         member.delete()
         return redirect("/afterLogin")
+
+
+
+def edit(request):
+    emp= skill.objects.all()
+
+    context={
+        'emp': emp,
+    }
+    return redirect(request, "index.html", context)
+
+def update(request,id):
+    if request.method == 'POST':
+        skilllevel = request.POST.get('skillLevel'),
+        skillex= request.POST.get('years')
+
+        emp= skill(
+        id=id,
+        skilllevel= skilllevel,
+        skillex= skillex
+        )
+        emp.save()
+        return redirect('home')
+        
+    return redirect(request, "index.html")

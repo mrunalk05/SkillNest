@@ -14,4 +14,5 @@ urlpatterns = [
     path('domainview',views.domainview.as_view()),
     path('domainview/<str:pk>',views.domainview.as_view()),
     path('delete/<str:pk>',views.delete),
+    
 ]
