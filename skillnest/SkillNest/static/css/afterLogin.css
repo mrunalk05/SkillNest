@@ -1,0 +1,112 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
+
+*
+{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins';
+}
+
+body
+{
+    display: flex;
+    justify-content: center;
+    align-items:center;
+    min-height: 100vh;
+    background: linear-gradient(45deg,#f0f8ff,#f0f8ff);
+    background-attachment: fixed;
+}
+
+.content
+{
+    align-items: center;
+    /* background-color: aqua; */
+}
+ .container
+{
+    position: relative;
+    width: 1150px;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.container .card
+{
+    position: relative;
+    width: 320px;
+    height: 520px;
+    background:#fff;
+    margin: 20px;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 15px 25px rgba(0,0,0,0.2);
+    transition: 0.5s;
+}
+
+
+.image-container 
+{
+    background: white;
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    padding: 5px;
+    transform: translate(65px,20px);
+
+}
+
+.image-container img
+{
+   
+    width: 180px;
+    height: 180px;
+    border-radius: 50%;
+
+}
+
+.container .card .circle h2
+{
+color: #fff;
+font-size: 4.5em;
+padding: 30px 0;
+}
+
+.container .card .content
+{
+    position: absolute;
+    bottom: 10px;
+    page-break-after: 20px;
+    text-align: center;
+}
+
+.container .card .content p{
+    color: #666;
+
+}
+
+
+.btn1
+{
+position: relative;
+display:inline-block;
+padding: 2px 36px;
+margin: 10px;
+color:#fff ;
+text-decoration: none;
+text-transform: uppercase;
+font-size: 18px;
+letter-spacing: 2px;
+border-spacing: 40px;
+background: linear-gradient(90deg,#0162c8,#55e7fc);
+}
+
+
+.add
+{
+    /* float: left; */
+    margin-top: 10rem;
+} 

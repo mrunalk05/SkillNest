@@ -1,0 +1,79 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <link rel="stylesheet" href="/static/css/register.css">
+</head>
+<body>
+  
+    <div class="container">
+        <header>
+           {% include "navbar2.html" %} 
+           <br>
+            Register Form
+        </header>
+
+
+        <form  method="post" class="form">
+          {% csrf_token %}
+
+        <div class="input-box">
+          <label for="username">Username</label>
+            {{ form.username }}
+        </div>
+        <div class="input-box">
+          <label for="email">Email</label>
+            {{ form.email}}
+        </div>
+        <div class="input-box">
+          <label for="password">Password</label>
+            {{ form.password1 }}
+        </div>
+        <div class="input-box">
+          <label for="password">Confirm Password</label>
+            {{ form.password2 }}
+        </div>
+        <div class="gender-box">
+          <h3>Position</h3>
+          <div class="gender-option">
+            <div class="gender">
+              {% comment %} <input type="radio" id="check-male" name="gender" checked /> {% endcomment %}
+              {{ form.is_manager }}
+              <label for="check-male">Manager</label>
+            </div>
+            <div class="gender">
+              {% comment %} <input type="radio" id="check-female" name="gender" /> {% endcomment %}
+              {{ form.is_employee }}
+              <label for="check-female">Employee</label>
+            </div>
+          </div>
+        </div>
+        {% comment %} <div class="manager">
+          <label>manager
+              {{ form.is_manager }}
+            <div class="control__indicator"></div>
+          </label>
+        </div>
+        <div class="employ">
+          <label class="control control--checkbox mb-0"><span class="caption">employee</span>
+              {{ form.is_employee }}
+            <div class="control__indicator"></div>
+          </label>
+        </div> {% endcomment %}
+          
+        <input type="submit"  value="Register" class="but">
+        <div class="row">
+          <p>Already have an account?<a href="#" style="color:  #64bcf4">Login</a></p>
+            </div>
+      </form>
+
+       
+      </div>
+</body>
+</html>
