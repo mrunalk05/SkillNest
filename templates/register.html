@@ -1,5 +1,3 @@
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -14,13 +12,15 @@
   
     <div class="container">
         <header>
-          {% comment %} {% include "header.html" %} {% endcomment %}
+           {% include "nav3.html" %} 
+           <br>
             Register Form
         </header>
 
 
         <form  method="post" class="form">
           {% csrf_token %}
+
         <div class="input-box">
           <label for="username">Username</label>
             {{ form.username }}
@@ -34,11 +34,25 @@
             {{ form.password1 }}
         </div>
         <div class="input-box">
-          <label for="password">confirm Password</label>
+          <label for="password">Confirm Password</label>
             {{ form.password2 }}
         </div>
-    
-        <div class="manager">
+        <div class="gender-box">
+          <h3>Position</h3>
+          <div class="gender-option">
+            <div class="gender">
+              {% comment %} <input type="radio" id="check-male" name="gender" checked /> {% endcomment %}
+              {{ form.is_manager }}
+              <label for="check-male">Manager</label>
+            </div>
+            <div class="gender">
+              {% comment %} <input type="radio" id="check-female" name="gender" /> {% endcomment %}
+              {{ form.is_employee }}
+              <label for="check-female">Employee</label>
+            </div>
+          </div>
+        </div>
+        {% comment %} <div class="manager">
           <label>manager
               {{ form.is_manager }}
             <div class="control__indicator"></div>
@@ -49,12 +63,11 @@
               {{ form.is_employee }}
             <div class="control__indicator"></div>
           </label>
-        </div>
-          <span class="text-error">{{ form.errors }}</span>
+        </div> {% endcomment %}
+          
         <input type="submit"  value="Register" class="but">
         <div class="row">
-                <p>Already have an account?</p>
-                <button class="login">Login</button>
+          <p>Already have an account?<a href="/login" style="color:  #64bcf4">Login</a></p>
             </div>
       </form>
 

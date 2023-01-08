@@ -18,11 +18,15 @@
       {% if msg %}
       {{ msg | safe }}
   {% else %}
-      Login page
+  <header>
+  {% include "nav3.html" %} 
+  <br>
+      Login page </header>
   {% endif %}
         <form  class="form" method="post">
           
            {% csrf_token %}
+           
            <div class="input-box">
             <label for="username">Username</label>
               {{ form.username }}
@@ -35,8 +39,7 @@
           
           <input class="but"  type="submit" value="Log In">
           <div class="row">
-            <p>Don't have an account?</p>
-            <button class="SignUp">SignUp</button>
+            <p>Don't have an account?<a href="/register" style="color:  #64bcf4">SignUp</a></p>
         </div>
         </form>
       </div>
@@ -48,5 +51,3 @@
     <script src="{% static 'js/main.js' %}"></script>
 </body>
 </html>
-
-

@@ -62,6 +62,9 @@ def handelLogout(request):
     return redirect('/login')
 
 
+def profile(request):
+    return render(request,'profile.html')
+
 def afterLogin(request):
     # p=User.objects.all()
     # print(p)
@@ -75,8 +78,44 @@ def afterLogin(request):
     #     print(i)
     array=[]
     dom=requests.get("http://127.0.0.1:8000/domainview")
-    # print(dom.json())
-    if globals.user.is_authenticated:
+    print(dom.json())
+    if globals.user.is_manager:
+        
+        p=requests.get('http://127.0.0.1:8000/skillview')
+        q=p.json()
+        for b in q:
+            
+            for i in b:
+                
+                if i=="userName":
+                    g=User.objects.get(id=b[i])
+                    b[i]=g.username
+                if i=="domain_id":
+                    g=domain.objects.get(domain_id=b[i])
+                    b[i]=g.domain+" "+g.skillName
+            # print(b)
+         
+        for b in q:
+            x = b["domain_id"].split()
+            # print(x)
+            context={
+                 "uid":b["uid"],
+                 "userName":b["userName"],
+                 "domain_id":x[0],
+                 "skillLevel":b["skillLevel"],
+                 "years":b["years"],
+                 "projectdes":x[1],
+            }
+            array.append(context)
+         
+       
+            
+           
+        print(dom)
+        
+        return render(request,'afterLogin.html',{'dom':dom,"s":array})
+
+    if globals.user.is_employee:
         s=skill.objects.filter(userName=globals.user.id)
         for i in s:
             context={
@@ -88,17 +127,11 @@ def afterLogin(request):
             }
             array.append(context)
             
-        # print(s)
-        # print (array)
-        # for i in array:
-        #     for j in i:
-
-        #         print (j)
+        
 
 
 
     return render(request,'afterLogin.html',{'dom':dom,"s":array})
-
 
 class skillSerializer(serializers.ModelSerializer):
     class Meta:
