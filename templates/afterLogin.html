@@ -310,62 +310,18 @@
         
       </div>
 <script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+<script src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
+
+
+
 <script>
- const api_url = "http://127.0.0.1:8000/skillview"; 
- const numbers=[]
- 
-  async function getapi(url) {
-      
-      // Storing response
-      const response = await fetch(url);
-      
-      // Storing data in form of JSON
-      var data = await response.json();
-      console.log(data);
+  var table = $('#myTable').DataTable({
+    paging: true,
+   ordering: true,
+   info: true
+});
 
-      for(let i of data)
-      {
-        
-       const api_url1 = "http://127.0.0.1:8000/domainview/"+i.domain_id; 
-      // uid=i.domain_id;
-
-        const res=await fetch(api_url1)
-        var result=await res.json();
-       console.log(result)
-      // console.log(i.uid)
-        if(data.length==4)
-      {
-
-        numbers.push([i.years,i.skillLevel,result.data.domain,result.data.skillName,i.uid])
-      }
-      else{
-        numbers.push([i.years,i.skillLevel,result.data.domain,result.data.skillName,i.uid,i.projectdes])
-      }
-        
-      }
-     // console.log(numbers)
-    //console.log(data);
-      if (response) {
-          hideloader();
-      }
-      show(data);
-  }
-  
-  // Calling that async function
-  getapi(api_url);
- 
-  // Function to hide the loader
-  function hideloader() {
-      document.getElementById('loading').style.display = 'none';
-  }
-  // Function to define innerHTML for HTML table
-  function show(data) {
-      let tab = "";
-
-      //console.log(uid)
-      
-      //document.getElementById("employees").innerHTML = tab;
-  }
 
 </script>
 
